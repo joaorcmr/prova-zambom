@@ -36,15 +36,18 @@ jobs:
         run: |
           REGION=$(printf '%s' "${{ secrets.GCP_REGION }}"); REGION=${REGION//$'\r'/}; REGION=${REGION//$'\n'/}
           PROJECT_ID=$(printf '%s' "${{ secrets.GCP_PROJECT_ID }}"); PROJECT_ID=${PROJECT_ID//$'\r'/}; PROJECT_ID=${PROJECT_ID//$'\n'/}
+          echo "REGION=$REGION" >> $GITHUB_ENV
+          echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
           IMAGE="${REGION}-docker.pkg.dev/${PROJECT_ID}/prova-zambom/prova-zambom-image:${TAG}"
           echo "IMAGE=$IMAGE" >> $GITHUB_ENV
           gcloud builds submit --tag "$IMAGE" .
 
       - name: Deploy to Cloud Run
+        shell: bash
         run: |
           gcloud run deploy "$SERVICE" \
             --image "$IMAGE" \
-            --region ${{ secrets.GCP_REGION }} \
+            --region "$REGION" \
             --platform managed \
             --allow-unauthenticated \
             --port 8080 \
