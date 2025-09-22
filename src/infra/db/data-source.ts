@@ -23,8 +23,6 @@ if (databaseUrl) {
   database = url.pathname.replace(/^\//, '');
 }
 
-const isProd = process.env.NODE_ENV === 'production';
-
 export default new DataSource({
   type: 'postgres',
   host,

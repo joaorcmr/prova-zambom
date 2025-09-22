@@ -11,9 +11,4 @@ export interface IEnvService {
     username: string;
     password: string;
   };
-  firebase: {
-    projectId: string;
-    privateKey: string;
-    clientEmail: string;
-  };
 }

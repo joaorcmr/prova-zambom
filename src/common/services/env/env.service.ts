@@ -14,11 +14,6 @@ export class EnvService implements IEnvService {
     username: string;
     password: string;
   };
-  firebase: {
-    projectId: string;
-    privateKey: string;
-    clientEmail: string;
-  };
   constructor(private readonly _configService: ConfigService) {
     this.api = {
       nodeEnv:
@@ -45,13 +40,5 @@ export class EnvService implements IEnvService {
         port: Number(_configService.getOrThrow<number>('DATABASE_PORT')),
       };
     }
-
-    this.firebase = {
-      projectId: _configService.getOrThrow<string>('FIREBASE_PROJECT_ID'),
-      privateKey: _configService
-        .getOrThrow<string>('FIREBASE_PRIVATE_KEY')
-        .replace(/\\n/g, '\n'),
-      clientEmail: _configService.getOrThrow<string>('FIREBASE_CLIENT_EMAIL'),
-    };
   }
 }
