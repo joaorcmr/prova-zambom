@@ -27,14 +27,14 @@ jobs:
         run: |
           if [ "${{ github.ref_name }}" = "main" ]; then
             echo "TAG=prod" >> $GITHUB_ENV
-            echo "SERVICE=fit-bro-api" >> $GITHUB_ENV
+            echo "SERVICE=prova-zambom-image" >> $GITHUB_ENV
             echo "NODE_ENV=production" >> $GITHUB_ENV
             echo "DB_URL=${{ secrets.DATABASE_URL }}" >> $GITHUB_ENV
             echo "JWT=${{ secrets.JWT_SECRET }}" >> $GITHUB_ENV
 
       - name: Build with Cloud Build (tag do ambiente)
         run: |
-          IMAGE="${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/nest-images/fit-bro-api:${TAG}"
+          IMAGE="${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/nest-images/prova-zambom-2025-2:${TAG}"
           echo "IMAGE=$IMAGE" >> $GITHUB_ENV
           gcloud builds submit --tag "$IMAGE" .
 
