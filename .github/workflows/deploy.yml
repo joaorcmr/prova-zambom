@@ -30,7 +30,7 @@ jobs:
             echo "SERVICE=prova-zambom-image" >> $GITHUB_ENV
             echo "NODE_ENV=production" >> $GITHUB_ENV
             echo "DB_URL=${{ secrets.DATABASE_URL }}" >> $GITHUB_ENV
-            echo "JWT=${{ secrets.JWT_SECRET }}" >> $GITHUB_ENV
+          fi
 
       - name: Build with Cloud Build (tag do ambiente)
         run: |
@@ -46,4 +46,4 @@ jobs:
             --platform managed \
             --allow-unauthenticated \
             --port 8080 \
-            --set-env-vars "NODE_ENV=$NODE_ENV,DATABASE_URL=$DB_URL,JWT_SECRET=$JWT"
+            --set-env-vars "NODE_ENV=$NODE_ENV,DATABASE_URL=$DB_URL"
