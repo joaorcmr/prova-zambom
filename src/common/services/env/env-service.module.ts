@@ -10,7 +10,7 @@ import { ConfigModule } from '@nestjs/config';
       envFilePath: process.env.NODE_ENV
         ? `.env.${process.env.NODE_ENV}`
         : '.env.dev',
-      ignoreEnvFile: process.env.NODE_ENV === 'production', // No Cloud Run, usar apenas env vars
+      ignoreEnvFile: !!process.env.K_SERVICE,
     }),
   ],
   providers: [useClass(ENV_SERVICE, EnvService)],

@@ -8,15 +8,15 @@ export class CourseEntity {
   @Column({ name: 'titulo', type: 'varchar' })
   titulo: string;
 
-  @Column({ name: 'descricao', type: 'varchar' })
+  @Column({ name: 'descricao', type: 'text' })
   descricao: string;
 
-  @Column({ name: 'carga_horaria', type: 'integer' })
+  @Column({ name: 'cargaHoraria', type: 'integer' })
   cargaHoraria: number;
 
   @Column({ name: 'instrutor', type: 'varchar' })
   instrutor: string;
 
-  @Column({ name: 'data_cadastro', type: 'timestamp' })
+  @Column({ name: 'dataCadastro', type: 'timestamptz' })
   dataCadastro: Date;
 }
