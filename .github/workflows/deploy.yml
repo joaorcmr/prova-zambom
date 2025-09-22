@@ -48,4 +48,4 @@ jobs:
             --platform managed \
             --allow-unauthenticated \
             --port 8080 \
-            --set-env-vars "NODE_ENV=$NODE_ENV,DATABASE_URL=$DB_URL"
+            --set-env-vars "PORT=8080,NODE_ENV=$NODE_ENV,DATABASE_URL=$DB_URL"
