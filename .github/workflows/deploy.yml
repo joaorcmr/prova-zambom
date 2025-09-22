@@ -30,7 +30,6 @@ jobs:
             echo "SERVICE=prova-zambom-image" >> $GITHUB_ENV
             echo "NODE_ENV=production" >> $GITHUB_ENV
             echo "DB_URL=${{ secrets.DATABASE_URL }}" >> $GITHUB_ENV
-            echo "DATABASE_SSL=${{ secrets.DATABASE_SSL }}" >> $GITHUB_ENV
           fi
 
       - name: Build with Cloud Build (tag do ambiente)
@@ -43,14 +42,10 @@ jobs:
 
       - name: Deploy to Cloud Run
         run: |
-          ENV_VARS="NODE_ENV=$NODE_ENV,DATABASE_URL=$DB_URL"
-          if [ -n "$DATABASE_SSL" ]; then
-            ENV_VARS="$ENV_VARS,DATABASE_SSL=$DATABASE_SSL"
-          fi
           gcloud run deploy "$SERVICE" \
             --image "$IMAGE" \
             --region ${{ secrets.GCP_REGION }} \
             --platform managed \
             --allow-unauthenticated \
             --port 8080 \
-            --set-env-vars "$ENV_VARS"
+            --set-env-vars "NODE_ENV=$NODE_ENV,DATABASE_URL=$DB_URL"
