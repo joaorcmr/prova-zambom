@@ -34,7 +34,9 @@ jobs:
 
       - name: Build with Cloud Build (tag do ambiente)
         run: |
-          IMAGE="${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/prova-zambom/prova-zambom-image:${TAG}"
+          REGION=$(printf '%s' "${{ secrets.GCP_REGION }}"); REGION=${REGION//$'\r'/}; REGION=${REGION//$'\n'/}
+          PROJECT_ID=$(printf '%s' "${{ secrets.GCP_PROJECT_ID }}"); PROJECT_ID=${PROJECT_ID//$'\r'/}; PROJECT_ID=${PROJECT_ID//$'\n'/}
+          IMAGE="${REGION}-docker.pkg.dev/${PROJECT_ID}/prova-zambom/prova-zambom-image:${TAG}"
           echo "IMAGE=$IMAGE" >> $GITHUB_ENV
           gcloud builds submit --tag "$IMAGE" .
 
